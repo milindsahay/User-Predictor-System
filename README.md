@@ -46,7 +46,7 @@ The column ‘se_property’ contains mixed values of user emails and other deta
 
 
 
-##Data Cleaning
+## Data Cleaning
 
 Initially we are considering only the data of ids who have made a successful purchase.
 
@@ -75,14 +75,14 @@ The given timestamps are in the format 'Y-m-d H:M:S'. But for our model, we woul
 In the given data, a successful purchase is captured by the instances where 'se_category'=='Purchase' and 'se_action'=='Success'. So we will create a new variable 'id2' and mark all the instances with a successful purchase.
 
 Now we clean the columns and group multiple categories together.
-To do so, we replace the categorical values from each column with an appropriate category name.
-●	The 'na' values are replaced by a 0,
-●	The list of course specific categories are labelled as one variable ‘Course_specific’,
-●	Label the variations of 'Submit' and 'Signup' categories as one variable.
-●	The categories which won't be needed in our model are labelled as 'Other'.
+To do so, we replace the categorical values from each column with an appropriate category name.                                               
+●	The 'na' values are replaced by a 0,                                 
+●	The list of course specific categories are labelled as one variablemm ‘Course_specific’,                                            
+●	Label the variations of 'Submit' and 'Signup' categories as one variable.                                                                
+●	The categories which won't be needed in our model are labelled as 'Other'.                                                                 
 
 
-##Feature Extraction
+## Feature Extraction
 
 Now we one-hot encode the required categorical variables and drop the previous columns.
 After this, we group the data on the basis of 'id' and 'dt' and sum them up. On summing up, we get the number of times a signal was recorded by an id on a day, for all the days that id generated a lead.
@@ -105,7 +105,7 @@ Now we follow the above given steps for the data of ids who didn't make a purcha
 
 And finally we flatten the multi index columns we obtained after pivoting the dataframe to get one indexed column names and concatenate both the dataframes obtained from purchase and non purchase ids.
 
-Building the Model
+## Building the Model
 
 We split the data into feature vectors and target variable i.e. x and y.
 Then we split the resulting data into training and testing data using train_test_split from sklearn. Finally we fit a RandomForestClassifier model from sklearn and tune the parameters.
@@ -115,7 +115,7 @@ Finally we plot the confusion matrices for the models.
   
 
 
-##Results
+## Results
 
 While tuning the parameters we were able to reduce the False Negative values. Now to predict our probable customers we use the False Positives as a measure. These False Positives are the users whose leads are similar to a user who actually made a purchase. These False Positives are set to false as they haven't made a purchase yet and were labelled as a 'No' by us.
 So, for our final output, we return a dataframe of ids who didn't make a purchase in our dataset but were classified as a buyer by our model i.e. the False Positives.
